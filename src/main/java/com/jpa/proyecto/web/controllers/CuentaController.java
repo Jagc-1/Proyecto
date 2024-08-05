@@ -46,7 +46,7 @@ public class CuentaController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     @PreAuthorize("hasAuthority('CREATE')")
     public ResponseEntity<?> create(@Valid @RequestBody Cuenta account, BindingResult result){
         if (result.hasFieldErrors()) {

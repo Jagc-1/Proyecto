@@ -41,7 +41,7 @@ public class CuentaImpl implements CuentaService{
         Optional<Cuenta> cuentaOpt = repository.findById(id);
         if (cuentaOpt.isPresent()) {
             Cuenta cuentaItem = cuentaOpt.orElseThrow();
-            cuentaItem.setNombre(cuenta.getNombre());
+            cuentaItem.setName(cuenta.getName());
             cuentaItem.setContrasena(cuenta.getContrasena());
             return Optional.of(repository.save(cuentaItem));
         }
