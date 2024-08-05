@@ -37,20 +37,26 @@ public class Cliente {
     @NotNull(message = "{NotNull.cliente.ubicacion}")
     private Ubicacion ubicacion;
 
+    @ManyToOne
+    @JoinColumn(name = "cuenta_id")
+    private Cuenta cuenta;
+
     // Constructor por defecto necesario para JPA
     public Cliente() {
     }
 
-    // Constructor parametrizado para facilitar la creación de instancias
-    public Cliente(String nombre, String apellido, Empleado empleado, Credito credito, Ubicacion ubicacion) {
+    public Cliente(@NotNull(message = "{NotNull.cliente.nombre}") String nombre,
+            @NotNull(message = "{NotNull.cliente.apellido}") String apellido, Empleado empleado,
+            @NotNull(message = "{NotNull.cliente.credito}") Credito credito,
+            @NotNull(message = "{NotNull.cliente.ubicacion}") Ubicacion ubicacion, Cuenta cuenta) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.empleado = empleado;
         this.credito = credito;
         this.ubicacion = ubicacion;
+        this.cuenta = cuenta;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -99,9 +105,19 @@ public class Cliente {
         this.ubicacion = ubicacion;
     }
 
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+
     @Override
     public String toString() {
         return "Cliente [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", empleado=" + empleado
-                + ", credito=" + credito + ", ubicacion=" + ubicacion + "]";
+                + ", credito=" + credito + ", ubicacion=" + ubicacion + ", cuenta=" + cuenta + "]";
     }
+
+   
 }

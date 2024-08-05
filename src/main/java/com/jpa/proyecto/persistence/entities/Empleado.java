@@ -42,11 +42,18 @@ public class Empleado {
     @NotNull(message = "{NotNull.empleado.contacto}")
     private Contacto contacto;
 
+    @ManyToOne
+    @JoinColumn(name = "cuenta_id")
+    private Cuenta cuenta;
+
     public Empleado() {
     }
 
-    public Empleado(String nombres, String apellidos, Oficina oficina, Empleado jefe, String puesto, String email,
-            Contacto contacto) {
+    public Empleado(String nombres, String apellidos, @NotNull(message = "{NotNull.empleado.oficina}") Oficina oficina,
+            @NotNull(message = "{NotNull.empleado.jefe}") Empleado jefe,
+            @NotNull(message = "{NotNull.empleado.puesto}") String puesto,
+            @Email(message = "{Email.empleado.email}") String email,
+            @NotNull(message = "{NotNull.empleado.contacto}") Contacto contacto, Cuenta cuenta) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.oficina = oficina;
@@ -54,6 +61,7 @@ public class Empleado {
         this.puesto = puesto;
         this.email = email;
         this.contacto = contacto;
+        this.cuenta = cuenta;
     }
 
     public Long getId() {
@@ -120,10 +128,19 @@ public class Empleado {
         this.contacto = contacto;
     }
 
+    public Cuenta getCuenta() {
+        return cuenta;
+    }
+
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
+    }
+
     @Override
     public String toString() {
         return "Empleado [id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", oficina=" + oficina
-                + ", jefe=" + jefe + ", puesto=" + puesto + ", email=" + email + ", contacto=" + contacto + "]";
+                + ", jefe=" + jefe + ", puesto=" + puesto + ", email=" + email + ", contacto=" + contacto + ", cuenta="
+                + cuenta + "]";
     }
 
     
