@@ -25,7 +25,7 @@ import com.jpa.proyecto.persistence.entities.Cuenta;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/cuentas")
+@RequestMapping("api/cuentas")
 public class CuentaController {
     @Autowired 
     private CuentaService service;

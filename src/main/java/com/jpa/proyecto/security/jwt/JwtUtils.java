@@ -2,9 +2,12 @@ package com.jpa.proyecto.security.jwt;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Value;
+
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -17,63 +20,56 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtils {
 
-    @Value("${jwt.secret.key}")
-    private String secretKey; 
+   private static final String SECRET_KEY = "586E3272357538782F413F4428472B4B6250655368566B597033733676397924";
 
-    @Value("${jwt.time.expiration}")
-    private String timeExpiration; 
+  public String getToken(UserDetails user) {
+    return getToken(new HashMap<>(), user);
+  }
 
-    @SuppressWarnings("deprecation")
-    public String generateAccesToken( String nombre){
-        return Jwts.builder()
-            .setSubject( nombre )
-            .setIssuedAt( new Date( System.currentTimeMillis()))
-            .setExpiration( new Date( System.currentTimeMillis() + Long.parseLong(timeExpiration.trim())))
-            .signWith(getSignatureKey(), SignatureAlgorithm.HS256)
-            .compact();
-    }
-// validar token
-    @SuppressWarnings("deprecation")
-    public Boolean isTokenValid(String token){
-        System.out.println(getSignatureKey());
-        try {
-            Claims theToken = Jwts.parser()
-                .setSigningKey(getSignatureKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+  private String getToken(Map<String, Object> extraClaims, UserDetails user) {
+    return Jwts
+        .builder()
+        .setClaims(extraClaims)
+        .setSubject(user.getUsername())
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+        .signWith(getKey(), SignatureAlgorithm.HS256)
+        .compact();
+  }
 
-            System.out.println("CLAIMS: " + theToken);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Token invalido: " + e.getMessage() + token + " ----> " + e.getLocalizedMessage());
-            return false;
-        }
-    }
+  private Key getKey() {
+    byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+    return Keys.hmacShaKeyFor(keyBytes);
+  }
 
-    @SuppressWarnings("deprecation")
-    public Claims extractAllClaims(String token){
+  public String getUsernameFromToken(String token) {
+    return getClaim(token, Claims::getSubject);
+  }
 
-        return Jwts.parser()
-        .setSigningKey(getSignatureKey())
+  public boolean isTokenValid(String token, UserDetails userDetails) {
+    final String username = getUsernameFromToken(token);
+    return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+  }
+
+  private Claims getAllClaims(String token) {
+    return Jwts
+        .parserBuilder()
+        .setSigningKey(getKey())
         .build()
         .parseClaimsJws(token)
         .getBody();
-    }
+  }
 
-    public String getNombreFromUser(String token){
-        return  this.getClaim(token, Claims::getSubject );
-    }
+  public <T> T getClaim(String token, Function<Claims, T> claimsResolver) {
+    final Claims claims = getAllClaims(token);
+    return claimsResolver.apply(claims);
+  }
 
+  private Date getExpiration(String token) {
+    return getClaim(token, Claims::getExpiration);
+  }
 
-    public <T> T getClaim(String token, Function<Claims, T> claimsFunction){
-        Claims  claims = extractAllClaims(token);
-        return claimsFunction.apply(claims);
-
-    }
-
-    public Key getSignatureKey(){
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey); // decodificarr clave
-        return Keys.hmacShaKeyFor(keyBytes); 
-}
+  private boolean isTokenExpired(String token) {
+    return getExpiration(token).before(new Date());
+  }
 }

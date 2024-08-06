@@ -44,7 +44,7 @@ public class JwtAutorizacionFiltro extends OncePerRequestFilter {
 
 
             if (jwtUtils.isTokenValid(token)){
-                String nombre = jwtUtils.getNombreFromUser(token);
+                String nombre = jwtUtils.getUsernameFromToken(token);
                 System.out.println(nombre);
                 UserDetails userDetails = userDetailsServiceImpl.findByUserName(nombre); 
 
