@@ -1,29 +1,15 @@
 package com.jpa.proyecto.domain.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthResponse {
     private String token;
 
-    private AuthResponse(String token) {
-        this.token = token;
-    }
-
-    public static Builder token(String token) {
-        return new Builder(token);
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public static class Builder {
-        private String token;
-
-        private Builder(String token) {
-            this.token = token;
-        }
-
-        public AuthResponse build() {
-            return new AuthResponse(this.token);
-        }
-    }
 }

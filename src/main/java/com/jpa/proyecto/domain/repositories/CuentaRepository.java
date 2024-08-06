@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.jpa.proyecto.persistence.entities.Cuenta;
 
 @Repository
-public interface CuentaRepository extends CrudRepository<Cuenta, Long>{
+public interface CuentaRepository extends CrudRepository<Cuenta, Long> {
 
-    Optional<Cuenta> findByName(String nombre);
+    Optional<Cuenta> findByUsername(String username);
 }

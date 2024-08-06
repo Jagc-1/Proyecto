@@ -12,8 +12,7 @@ import com.jpa.proyecto.persistence.entities.Cuenta;
 import jakarta.transaction.Transactional;
 
 @Service
-public class CuentaImpl implements CuentaService{   
-
+public class CuentaImpl implements CuentaService {
 
     @Autowired
     CuentaRepository repository;
@@ -41,8 +40,8 @@ public class CuentaImpl implements CuentaService{
         Optional<Cuenta> cuentaOpt = repository.findById(id);
         if (cuentaOpt.isPresent()) {
             Cuenta cuentaItem = cuentaOpt.orElseThrow();
-            cuentaItem.setName(cuenta.getName());
-            cuentaItem.setContrasena(cuenta.getContrasena());
+            cuentaItem.setUsername(cuenta.getUsername());
+            cuentaItem.setPassword(cuenta.getPassword());
             return Optional.of(repository.save(cuentaItem));
         }
         return cuentaOpt;
@@ -52,7 +51,7 @@ public class CuentaImpl implements CuentaService{
     @Override
     public Optional<Cuenta> delete(Long id) {
         Optional<Cuenta> cuentaOpt = repository.findById(id);
-        cuentaOpt.ifPresent(cuenta ->{
+        cuentaOpt.ifPresent(cuenta -> {
             repository.delete(cuenta);
         });
         return cuentaOpt;
