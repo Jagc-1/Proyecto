@@ -60,4 +60,10 @@ public class PedidoImpl implements PedidoService {
         });
         return pedidoOpt;
     }
+
+    @Transactional
+    @Override
+    public List<Pedido> findPedidoByEstado(Long estado){
+        return repository.findPedidoByEstado(estado);
+    }
 }

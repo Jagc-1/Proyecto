@@ -71,4 +71,13 @@ public class PedidoController {
         });
         return ResponseEntity.badRequest().body(errores);
     }
+
+    @GetMapping("/pedidoEstado")
+    public ResponseEntity<List<Pedido>> pedidoEstado(@RequestParam Long estado){
+        List<Pedido> listPE = servicio.findPedidoByEstado(estado);
+        if (listPE.isEmpty()) {
+            return ResponseEntity.ok(listPE);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

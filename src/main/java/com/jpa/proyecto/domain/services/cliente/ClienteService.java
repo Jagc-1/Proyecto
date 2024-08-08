@@ -11,4 +11,5 @@ public interface ClienteService {
     Cliente save(Cliente cliente);
     Optional<Cliente> update(Long id, Cliente cliente);
     Optional<Cliente> delete(Long id);
+    List<Cliente> findCustomersByCity(String nombre);
 }

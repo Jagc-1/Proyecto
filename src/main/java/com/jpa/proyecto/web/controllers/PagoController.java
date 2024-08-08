@@ -71,4 +71,13 @@ public class PagoController {
         });
         return ResponseEntity.badRequest().body(errores);
     }
+
+    @GetMapping("/pagoCliente")
+    public ResponseEntity<List<Pago>> productoGama(@RequestParam Long cliente){
+        List<Pago> listPC = servicio.findPagosByCliente(cliente);
+        if (listPC.isEmpty()) {
+            return ResponseEntity.ok(listPC);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

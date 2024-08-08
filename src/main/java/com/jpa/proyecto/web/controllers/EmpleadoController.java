@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.jpa.proyecto.domain.services.empleado.EmpleadoService;
 import com.jpa.proyecto.persistence.entities.Empleado;
+
 import jakarta.validation.Valid;
 
 import java.util.*;
@@ -69,5 +70,14 @@ public class EmpleadoController {
             errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
         });
         return ResponseEntity.badRequest().body(errores);
+    }
+
+    @GetMapping("/empleadoOficina")
+    public ResponseEntity<List<Empleado>> empleadoOficina(@RequestParam Long oficinaId){
+        List<Empleado> listEO = servicio.findEmployeesByOficina(oficinaId);
+        if (listEO.isEmpty()) {
+            return ResponseEntity.ok(listEO);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

@@ -12,4 +12,5 @@ public interface PagoService {
     Pago save(Pago pago);
     Optional<Pago> update(Long id, Pago pago);
     Optional<Pago> delete(Long id);
+    List<Pago> findPagosByCliente(Long cliente);
 }

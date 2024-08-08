@@ -18,8 +18,11 @@ import java.util.*;
 @RequestMapping("/api/productos")
 public class ProductoController {
 
-    @Autowired
-    private ProductoService servicio;
+    private final ProductoService servicio;
+
+    ProductoController(ProductoService servicio) {
+        this.servicio = servicio;
+    }
 
     @GetMapping
     public List<Producto> listarProductos() {
@@ -70,5 +73,14 @@ public class ProductoController {
             errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
         });
         return ResponseEntity.badRequest().body(errores);
+    }
+
+    @GetMapping("/gama")
+    public ResponseEntity<List<Producto>> productoGama(@RequestParam Long gamaProducto){
+        List<Producto> listGP = servicio.findProductsByGama(gamaProducto);
+        if (listGP.isEmpty()) {
+            return ResponseEntity.ok(listGP);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

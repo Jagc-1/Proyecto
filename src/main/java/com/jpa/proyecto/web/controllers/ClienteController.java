@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jpa.proyecto.domain.services.cliente.ClienteService;
 import com.jpa.proyecto.persistence.entities.Cliente;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -53,7 +53,8 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizar(@Valid @RequestBody Cliente cliente, BindingResult resultado, @PathVariable Long id) {
+    public ResponseEntity<?> actualizar(@Valid @RequestBody Cliente cliente, BindingResult resultado,
+            @PathVariable Long id) {
         if (resultado.hasFieldErrors()) {
             return validar(resultado);
         }
@@ -79,5 +80,14 @@ public class ClienteController {
             errores.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
         });
         return ResponseEntity.badRequest().body(errores);
+    }
+
+    @GetMapping("/ciudadCliente")
+    public ResponseEntity<List<Cliente>> clienteCiudad(@RequestParam String nombre) {
+        List<Cliente> listCC = servicio.findCustomersByCity(nombre);
+        if (listCC.isEmpty()) {
+            return ResponseEntity.ok(listCC);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

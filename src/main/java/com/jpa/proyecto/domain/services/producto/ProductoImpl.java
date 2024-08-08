@@ -1,6 +1,7 @@
 package com.jpa.proyecto.domain.services.producto;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,8 +14,11 @@ import java.util.Optional;
 @Service
 public class ProductoImpl implements ProductoService {
 
-    @Autowired
-    private ProductoRepository repository;
+    private final ProductoRepository repository;
+
+    ProductoImpl(ProductoRepository repository) {
+        this.repository = repository;
+    }
 
     @Transactional
     @Override
@@ -61,5 +65,11 @@ public class ProductoImpl implements ProductoService {
             repository.delete(productoItem);
         });
         return productoOpt;
+    }
+
+    @Transactional
+    @Override
+    public List<Product> findProductsByGama(Long gamaProducto){
+        return repository.findProductsByGama(gamaProducto);
     }
 }

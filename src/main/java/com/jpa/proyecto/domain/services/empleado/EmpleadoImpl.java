@@ -61,4 +61,10 @@ public class EmpleadoImpl implements EmpleadoService {
         });
         return empleadoOpt;
     }
+
+    @Transactional
+    @Override
+    public List<Empleado> findEmployeesByOficina(Long oficinaId){
+        return repository.findEmployeesByOficina(oficinaId);
+    }
 }

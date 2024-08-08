@@ -60,4 +60,10 @@ public class ClienteImpl implements ClienteService {
         });
         return clienteOpt;
     }
+
+    @Transactional
+    @Override
+    public List<Cliente> findCustomersByCity(String nombre){
+        return repository.findCustomersByCity(nombre);
+    }
 }
