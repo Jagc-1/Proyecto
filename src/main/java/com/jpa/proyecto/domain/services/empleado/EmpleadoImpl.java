@@ -1,14 +1,14 @@
 package com.jpa.proyecto.domain.services.empleado;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jpa.proyecto.domain.repositories.EmpleadoRepository;
 import com.jpa.proyecto.persistence.entities.Empleado;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmpleadoImpl implements EmpleadoService {
@@ -66,5 +66,11 @@ public class EmpleadoImpl implements EmpleadoService {
     @Override
     public List<Empleado> findEmployeesByOficina(Long oficinaId){
         return repository.findEmployeesByOficina(oficinaId);
+    }
+
+    @Transactional
+    @Override
+    public List<Empleado> findEmployeesWithAssignedOrders(){
+        return repository.findEmployeesWithAssignedOrders();
     }
 }

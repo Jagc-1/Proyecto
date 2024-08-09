@@ -13,4 +13,5 @@ public interface EmpleadoService {
     Optional<Empleado> update(Long id, Empleado empleado);
     Optional<Empleado> delete(Long id);
     List<Empleado> findEmployeesByOficina(Long oficinaId);
+    List<Empleado> findEmployeesWithAssignedOrders();
 }

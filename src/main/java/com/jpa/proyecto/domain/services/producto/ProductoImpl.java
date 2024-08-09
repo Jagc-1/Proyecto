@@ -1,15 +1,13 @@
 package com.jpa.proyecto.domain.services.producto;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jpa.proyecto.domain.repositories.ProductoRepository;
 import com.jpa.proyecto.persistence.entities.Producto;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductoImpl implements ProductoService {
@@ -69,7 +67,13 @@ public class ProductoImpl implements ProductoService {
 
     @Transactional
     @Override
-    public List<Product> findProductsByGama(Long gamaProducto){
+    public List<Producto> findProductsByGama(Long gamaProducto){
         return repository.findProductsByGama(gamaProducto);
+    }
+
+    @Transactional
+    @Override
+    public List<Producto> findProductsWithLowStock(int stockMinimo){
+        return repository.findProductsWithLowStock(stockMinimo);
     }
 }

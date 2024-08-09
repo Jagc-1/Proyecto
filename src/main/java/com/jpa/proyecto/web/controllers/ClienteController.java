@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jpa.proyecto.domain.services.cliente.ClienteService;
 import com.jpa.proyecto.persistence.entities.Cliente;
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -87,6 +88,15 @@ public class ClienteController {
         List<Cliente> listCC = servicio.findCustomersByCity(nombre);
         if (listCC.isEmpty()) {
             return ResponseEntity.ok(listCC);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/pendiente")
+    public ResponseEntity<List<Cliente>> pedidoPendiente() {
+        List<Cliente> listPC = servicio.findCustomersWithPendingOrders();
+        if (listPC.isEmpty()) {
+            return ResponseEntity.ok(listPC);
         }
         return ResponseEntity.notFound().build();
     }

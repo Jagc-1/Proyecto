@@ -63,4 +63,10 @@ public class PagoImpl implements PagoService {
     public List<Pago> findPagosByCliente(Long cliente){
         return repository.findPagosByCliente(cliente);
     }
+
+    @Transactional
+    @Override
+    public List<Pago> findPaymentsByMetodoPago(String metodo_pago){
+        return  repository.findPaymentsByMetodoPago(metodo_pago);
+    }
 }

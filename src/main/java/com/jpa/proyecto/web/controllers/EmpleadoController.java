@@ -1,18 +1,29 @@
 package com.jpa.proyecto.web.controllers;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jpa.proyecto.domain.services.empleado.EmpleadoService;
 import com.jpa.proyecto.persistence.entities.Empleado;
 
 import jakarta.validation.Valid;
-
-import java.util.*;
 
 @RestController
 @RequestMapping("/api/empleados")
@@ -77,6 +88,15 @@ public class EmpleadoController {
         List<Empleado> listEO = servicio.findEmployeesByOficina(oficinaId);
         if (listEO.isEmpty()) {
             return ResponseEntity.ok(listEO);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/empleadoPedido")
+    public ResponseEntity<List<Empleado>> empleadoPedido(){
+        List<Empleado> listEMP = servicio.findEmployeesWithAssignedOrders();
+        if (listEMP.isEmpty()) {
+            return ResponseEntity.ok(listEMP);
         }
         return ResponseEntity.notFound().build();
     }

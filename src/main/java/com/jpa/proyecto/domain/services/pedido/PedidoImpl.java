@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jpa.proyecto.domain.repositories.PedidoRepository;
 import com.jpa.proyecto.persistence.entities.Pedido;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,5 +66,11 @@ public class PedidoImpl implements PedidoService {
     @Override
     public List<Pedido> findPedidoByEstado(Long estado){
         return repository.findPedidoByEstado(estado);
+    }
+
+    @Transactional
+    @Override
+    public List<Pedido> findOrdersByDateRange(Date fecha_esperada,Date fecha_pedido){
+        return repository.findOrdersByDateRange(fecha_esperada, fecha_pedido);
     }
 }

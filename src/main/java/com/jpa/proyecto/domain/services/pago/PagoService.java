@@ -13,4 +13,5 @@ public interface PagoService {
     Optional<Pago> update(Long id, Pago pago);
     Optional<Pago> delete(Long id);
     List<Pago> findPagosByCliente(Long cliente);
+    List<Pago> findPaymentsByMetodoPago(String metodo_pago);
 }

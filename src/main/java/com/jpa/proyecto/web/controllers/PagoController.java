@@ -1,18 +1,29 @@
 package com.jpa.proyecto.web.controllers;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jpa.proyecto.domain.services.pago.PagoService;
 import com.jpa.proyecto.persistence.entities.Pago;
 
 import jakarta.validation.Valid;
-
-import java.util.*;
 
 @RestController
 @RequestMapping("/api/pagos")
@@ -77,6 +88,15 @@ public class PagoController {
         List<Pago> listPC = servicio.findPagosByCliente(cliente);
         if (listPC.isEmpty()) {
             return ResponseEntity.ok(listPC);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/PagoMetodo")
+    public ResponseEntity<List<Pago>> metodoPago(@RequestParam String metodo_pago){
+        List<Pago> listPM = servicio.findPaymentsByMetodoPago(metodo_pago);
+        if(listPM.isEmpty()){
+            return ResponseEntity.ok(listPM);
         }
         return ResponseEntity.notFound().build();
     }

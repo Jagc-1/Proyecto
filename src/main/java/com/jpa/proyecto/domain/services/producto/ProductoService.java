@@ -3,8 +3,6 @@ package com.jpa.proyecto.domain.services.producto;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.repository.query.Param;
-
 import com.jpa.proyecto.persistence.entities.Producto;
 
 public interface ProductoService {
@@ -19,5 +17,7 @@ public interface ProductoService {
 
     Optional<Producto> delete(Long id);
 
-    List<Product> findProductsByGama(Long gamaProducto);
+    List<Producto> findProductsByGama(Long gamaProducto);
+
+    List<Producto> findProductsWithLowStock(int stockMinimo);
 }

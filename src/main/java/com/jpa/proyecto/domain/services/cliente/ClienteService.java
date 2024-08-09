@@ -12,4 +12,5 @@ public interface ClienteService {
     Optional<Cliente> update(Long id, Cliente cliente);
     Optional<Cliente> delete(Long id);
     List<Cliente> findCustomersByCity(String nombre);
+    List<Cliente> findCustomersWithPendingOrders();
 }

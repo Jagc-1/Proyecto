@@ -66,4 +66,10 @@ public class ClienteImpl implements ClienteService {
     public List<Cliente> findCustomersByCity(String nombre){
         return repository.findCustomersByCity(nombre);
     }
+
+    @Transactional
+    @Override
+    public List<Cliente> findCustomersWithPendingOrders(){
+        return repository.findCustomersWithPendingOrders();
+    }
 }

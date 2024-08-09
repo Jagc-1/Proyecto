@@ -80,4 +80,13 @@ public class PedidoController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/pedidofecha")
+    public ResponseEntity<List<Pedido>> pedidofecha(@RequestParam Date fecha_esperada,@RequestParam Date fecha_pedido){
+        List<Pedido> listPf = servicio.findOrdersByDateRange(fecha_esperada, fecha_pedido);
+        if(listPf.isEmpty()){
+            return ResponseEntity.ok(listPf);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
