@@ -120,15 +120,13 @@ INSERT INTO productos(id, precio, dimension_id, gama_producto_id, proveedor_id, 
 (5, 19.99, 5, 5, 5, 5, 'Caja de chocolates gourmet con selección variada.', 'Chocolates Delicias');
 
 INSERT INTO detalles_pedidos(id, cantidad, numero_linea, precio_unidad, pedido_id, producto_id) VALUES
-(1, 2, 1, 499.99, 1, 1), 
-(2, 1, 2, 299.99, 1, 2),
+(1, 2, 1, 499.99, 1, 1),
 (3, 5, 1, 59.99, 2, 3),
 (4, 1, 1, 799.99, 3, 4), 
 (5, 3, 1, 19.99, 4, 5); 
 
 INSERT INTO pagos(id, monto, fecha_pago, pedido_id) VALUES
-(1, 799.98, '2024-08-05', 1),  
-(2, 299.99, '2024-08-06', 2),
+(1, 799.98, '2024-08-05', 1),
 (3, 799.99, '2024-08-07', 3),  
 (4, 59.97, '2024-08-08', 4), 
 (5, 59.97, '2024-08-09', 5); 
