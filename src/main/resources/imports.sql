@@ -71,7 +71,7 @@ INSERT INTO cuentas(id, username, password, role) VALUES
 (3, 'Luis Matinez', 'securePass1!', 'USER');
 
 INSERT INTO empleados(id, contacto_id, cuenta_id, jefe_id, oficina_id, apellidos, email, nombres, puesto) VALUES
-(1, 6, 1, NULL, 1, 'Pérez', 'juan.perez@monterrey.com', 'Juan', 'Gerente General'),
+(1, 6, 1, 3, 1, 'Pérez', 'juan.perez@monterrey.com', 'Juan', 'Gerente General'),
 (2, 7, 2, 1, 2, 'González', 'ana.gonzalez@girona.com', 'Ana', 'Coordinadora'),  
 (3, 8, 3, 2, 3, 'Martínez', 'luis.martinez@buffalo.com', 'Luis', 'Analista');   
 
