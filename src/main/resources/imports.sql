@@ -65,10 +65,10 @@ INSERT INTO oficinas(id, contacto_id, ubicacion_id) VALUES
 (2, 7, 7),  
 (3, 8, 8); 
 
-INSERT INTO cuentas(id, contrasena, nombre) VALUES
-(1, 'contraseña123', 'Juan Pérez'),
-(2, '1234abcd', 'Ana González'),   
-(3, 'securePass1!', 'Luis Martínez');
+INSERT INTO cuentas(id, username, password, role) VALUES
+(1, 'Juan Perez', 'contraseña123', 'ADMIN'),
+(2, 'Ana Gonzalez', '1234abcd', 'USER'),   
+(3, 'Luis Matinez', 'securePass1!', 'USER');
 
 INSERT INTO empleados(id, contacto_id, cuenta_id, jefe_id, oficina_id, apellidos, email, nombres, puesto) VALUES
 (1, 6, 1, NULL, 1, 'Pérez', 'juan.perez@monterrey.com', 'Juan', 'Gerente General'),
