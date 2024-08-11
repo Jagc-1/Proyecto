@@ -70,10 +70,12 @@ INSERT INTO cuentas(id, username, password, role) VALUES
 (2, 'Ana Gonzalez', '1234abcd', 'USER'),   
 (3, 'Luis Matinez', 'securePass1!', 'USER');
 
+-- Primero, inserta empleados con las relaciones de jefe establecidas
 INSERT INTO empleados(id, contacto_id, cuenta_id, jefe_id, oficina_id, apellidos, email, nombres, puesto) VALUES
-(1, 6, 1, 3, 1, 'Pérez', 'juan.perez@monterrey.com', 'Juan', 'Gerente General'),
-(2, 7, 2, 1, 2, 'González', 'ana.gonzalez@girona.com', 'Ana', 'Coordinadora'),  
-(3, 8, 3, 2, 3, 'Martínez', 'luis.martinez@buffalo.com', 'Luis', 'Analista');   
+(1, 6, 1, 1, 1, 'Pérez', 'juan.perez@monterrey.com', 'Juan', 'Gerente General'), -- Jefe General, se referencia a sí mismo
+(2, 7, 2, 1, 2, 'González', 'ana.gonzalez@girona.com', 'Ana', 'Coordinadora'),   -- Reporta a Juan Pérez
+(3, 8, 3, 2, 3, 'Martínez', 'luis.martinez@buffalo.com', 'Luis', 'Analista');   -- Reporta a Ana González
+
 
 INSERT INTO clientes(credito_id, cuenta_id, empleado_id, ubicacion_id, apellido, nombre) VALUES
 (1, 1, 1, 6, 'García', 'Roberto'),      
@@ -115,15 +117,14 @@ INSERT INTO stock(id, stock_actual, stock_maximo, stock_minimo) VALUES
 INSERT INTO productos(id, precio, dimension_id, gama_producto_id, proveedor_id, stock_id, descripcion, nombre) VALUES
 (1, 499.99, 1, 1, 1, 1, 'Refrigerador de alta eficiencia con múltiples compartimentos.', 'Refrigerador EcoCool'),
 (2, 299.99, 2, 2, 2, 2, 'Silla ergonómica con soporte lumbar ajustable.', 'Silla ErgoFlex'),
-(3, 59.99, 3, 3, 3, 3, 'Paquete de 100 hojas de papel de oficina A4.', 'Papel OfficePack'),
-(4, 799.99, 4, 4, 4, 4, 'Taladro de alta potencia para uso industrial.', 'Taladro PowerDrill'),
-(5, 19.99, 5, 5, 5, 5, 'Caja de chocolates gourmet con selección variada.', 'Chocolates Delicias');
+(3, 59.99, 3, 3, 3, 3, 'Paquete de 100 hojas de papel de oficina A4.', 'Papel OfficePack');
 
 INSERT INTO detalles_pedidos(id, cantidad, numero_linea, precio_unidad, pedido_id, producto_id) VALUES
 (1, 2, 1, 499.99, 1, 1),
 (3, 5, 1, 59.99, 5, 3),
-(4, 1, 1, 799.99, 3, 4), 
-(5, 3, 1, 19.99, 4, 5); 
+(4, 1, 1, 799.99, 3, 2), 
+(5, 3, 1, 19.99, 4, 1);
+
 
 INSERT INTO pagos(id, monto, fecha_pago, pedido_id) VALUES
 (1, 799.98, '2024-08-05', 1),
