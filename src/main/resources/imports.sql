@@ -71,7 +71,7 @@ INSERT INTO cuentas(id, username, password, role) VALUES
 (3, 'Luis Matinez', 'securePass1!', 'USER');
 
 INSERT INTO empleados(id, contacto_id, cuenta_id, jefe_id, oficina_id, apellidos, email, nombres, puesto) VALUES
-(1, 6, 1, NULL, 1, 'Pérez', 'juan.perez@monterrey.com', 'Juan', 'Gerente General'),
+(1, 6, 1, 3, 1, 'Pérez', 'juan.perez@monterrey.com', 'Juan', 'Gerente General'),
 (2, 7, 2, 1, 2, 'González', 'ana.gonzalez@girona.com', 'Ana', 'Coordinadora'),  
 (3, 8, 3, 2, 3, 'Martínez', 'luis.martinez@buffalo.com', 'Luis', 'Analista');   
 
@@ -92,11 +92,11 @@ INSERT INTO proveedores(id, ubicacion_id, apellidos, nombre_empresa, nombres) VA
 (3, 8, 'Martínez', 'Papelería Global', 'Luis');        -- Proveedor con ubicación en Buffalo
 
 INSERT INTO gama_producto(id, descripcion, imagen, nombre) VALUES
-(1, 'Electrodomésticos de última generación', 'https://example.com/electrodomesticos.jpg', 'Electrodomésticos'),
-(2, 'Muebles modernos para oficina y hogar', 'https://example.com/muebles.jpg', 'Muebles Modernos'),
-(3, 'Papelería y suministros de oficina', 'https://example.com/papeleria.jpg', 'Papelería de Oficina'),
-(4, 'Componentes industriales y maquinaria', 'https://example.com/componentes.jpg', 'Componentes Industriales'),
-(5, 'Alimentos gourmet y bebidas especiales', 'https://example.com/alimentos.jpg', 'Alimentos y Bebidas');
+(1, 'Electrodomésticos de última generación', 'electrodomesticos','Electrodomésticos'),
+(2, 'Muebles modernos para oficina y hogar', 'muebles', 'Muebles Modernos'),
+(3, 'Papelería y suministros de oficina', 'papeleria', 'Papelería de Oficina'),
+(4, 'Componentes industriales y maquinaria', 'componentes', 'Componentes Industriales'),
+(5, 'Alimentos gourmet y bebidas especiales', 'alimentos', 'Alimentos y Bebidas');
 
 INSERT INTO dimensiones(id, alto, ancho, largo, peso) VALUES
 (1, 30.0, 20.0, 10.0, 1.5),
@@ -129,5 +129,4 @@ INSERT INTO pagos(id, monto, fecha_pago, pedido_id) VALUES
 (1, 799.98, '2024-08-05', 1),
 (3, 799.99, '2024-08-07', 3),  
 (4, 59.97, '2024-08-08', 4), 
-(5, 59.97, '2024-08-09', 5); 
-
+(5, 59.97, '2024-08-09', 5);
